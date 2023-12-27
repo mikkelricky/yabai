@@ -488,6 +488,10 @@ static char *reserved_space_identifiers[] =
 {
     ARGUMENT_COMMON_SEL_PREV,
     ARGUMENT_COMMON_SEL_NEXT,
+    ARGUMENT_COMMON_SEL_NORTH,
+    ARGUMENT_COMMON_SEL_EAST,
+    ARGUMENT_COMMON_SEL_SOUTH,
+    ARGUMENT_COMMON_SEL_WEST,
     ARGUMENT_COMMON_SEL_FIRST,
     ARGUMENT_COMMON_SEL_LAST,
     ARGUMENT_COMMON_SEL_RECENT,
@@ -732,6 +736,20 @@ static struct selector parse_space_selector(FILE *rsp, char **message, uint64_t 
                     result.sid = sid;
                 } else {
                     daemon_fail(rsp, "could not locate the next space.\n");
+                }
+            } else {
+                daemon_fail(rsp, "could not locate the selected space.\n");
+            }
+        } else if (token_equals(result.token, ARGUMENT_COMMON_SEL_NORTH)
+                   || token_equals(result.token, ARGUMENT_COMMON_SEL_EAST)
+                   || token_equals(result.token, ARGUMENT_COMMON_SEL_SOUTH)
+                   || token_equals(result.token, ARGUMENT_COMMON_SEL_WEST)) {
+            if (acting_sid) {
+                uint64_t sid = space_manager_grid_space(acting_sid, result.token.text);
+                if (sid) {
+                    result.sid = sid;
+                } else {
+                    daemon_fail(rsp, "could not locate the %s space.\n", result.token.text);
                 }
             } else {
                 daemon_fail(rsp, "could not locate the selected space.\n");

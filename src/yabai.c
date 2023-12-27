@@ -202,7 +202,7 @@ static void parse_arguments(int argc, char **argv)
 
     if ((string_equals(argv[1], VERSION_OPT_LONG)) ||
         (string_equals(argv[1], VERSION_OPT_SHRT))) {
-        fprintf(stdout, "yabai-v%d.%d.%d\n", MAJOR, MINOR, PATCH);
+        fprintf(stdout, "yabai-grid-spaces-v%d.%d.%d\n", MAJOR, MINOR, PATCH);
         exit(EXIT_SUCCESS);
     }
 
