@@ -25,6 +25,7 @@ struct space_manager
     bool window_zoom_persist;
     bool auto_balance;
     struct space_label *labels;
+    CFArrayRef grid_columns;
 };
 
 enum space_op_error
